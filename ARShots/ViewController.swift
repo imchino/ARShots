@@ -54,9 +54,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         if let result = hitTestResult.first {
             print("Ray intersected a discovered plane.")
-        }        
+        }
     }
 
+    func addHoop(result: ARHitTestResult) {
+        let hoopScene = SCNScene(named: "art.scnassets/hoop.scn")
+        
+        guard let hoopNode = hoopScene?.rootNode.childNode(withName: "Hoop", recursively: false) else {
+            return
+        }
+        
+        sceneView.scene.rootNode.addChildNode(hoopNode)
+    }
+    
     // MARK: - ARSCNViewDelegate
     
 /*
