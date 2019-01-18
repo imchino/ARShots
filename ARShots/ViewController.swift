@@ -49,6 +49,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     @IBAction func screenTapped(_ sender: UITapGestureRecognizer) {
+        let touchLocation = sender.location(in: sceneView)
+        let hitTestResult   = sceneView.hitTest(touchLocation, types: [.existingPlaneUsingExtent])
+        
+        if let result = hitTestResult.first {
+            print("Ray intersected a discovered plane.")
+        }        
     }
 
     // MARK: - ARSCNViewDelegate
