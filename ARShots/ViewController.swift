@@ -81,6 +81,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let cameraTransform = SCNMatrix4(currentFrame.camera.transform)
         ball.transform = cameraTransform
         
+        let physicsBody = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: ball))
+        ball.physicsBody = physicsBody
+        
+        let power = Float(10.0)
+        let force = SCNVector3(x: -cameraTransform.m31*power, y: -cameraTransform.m32*power, z: -cameraTransform.m33*power)
+        ball.physicsBody?.applyForce(force, asImpulse: true)
+        
         sceneView.scene.rootNode.addChildNode(ball)
     }
     
