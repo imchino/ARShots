@@ -13,7 +13,7 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,6 +46,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Pause the view's session
         sceneView.session.pause()
+    }
+    
+    @IBAction func screenTapped(_ sender: UITapGestureRecognizer) {
     }
 
     // MARK: - ARSCNViewDelegate
