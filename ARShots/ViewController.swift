@@ -21,7 +21,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.delegate = self
         
         // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true        
+        sceneView.showsStatistics = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,7 +47,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let hitTestResult   = sceneView.hitTest(touchLocation, types: [.existingPlaneUsingExtent])
         
         if let result = hitTestResult.first {
-            print("Ray intersected a discovered plane.")
+            addHoop(result: result)
         }
     }
 
@@ -57,6 +57,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         guard let hoopNode = hoopScene?.rootNode.childNode(withName: "Hoop", recursively: false) else {
             return
         }
+        
+        // worldTransform は 4x4行列（0: x軸回転, 1: y軸回転, 2: z軸回転, 3: 空間座標位置）
+        let planePosition = result.worldTransform.columns.3
+        hoopNode.position = SCNVector3(planePosition.x, planePosition.y, planePosition.z)
         
         sceneView.scene.rootNode.addChildNode(hoopNode)
     }
