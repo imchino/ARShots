@@ -94,6 +94,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.scene.rootNode.addChildNode(ball)
     }
     
+    func createWall(from anchor: ARPlaneAnchor) -> SCNNode{
+        let anchorWidth  = CGFloat(anchor.extent.x)
+        let anchorHeight = CGFloat(anchor.extent.z)
+        
+        let wallGeometry = SCNPlane(width: anchorWidth, height: anchorHeight)
+        wallGeometry.firstMaterial?.diffuse.contents = UIColor.red
+        
+        let wallNode = SCNNode(geometry: wallGeometry)
+        wallNode.opacity = 0.25
+        
+        return wallNode
+    }
+    
     // MARK: - ARSCNViewDelegate
     
 /*
