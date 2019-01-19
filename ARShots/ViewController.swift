@@ -96,14 +96,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     func createWall(from anchor: ARPlaneAnchor) -> SCNNode{
         let anchorWidth  = CGFloat(anchor.extent.x)
-        let anchorHeight = CGFloat(anchor.extent.z)
+        let anchorHeight = CGFloat(anchor.extent.y)
         
         let wallGeometry = SCNPlane(width: anchorWidth, height: anchorHeight)
         wallGeometry.firstMaterial?.diffuse.contents = UIColor.red
         
         let wallNode = SCNNode(geometry: wallGeometry)
         wallNode.opacity = 0.25
-        
+        wallNode.eulerAngles.x = -Float.pi/2
+
         return wallNode
     }
     
