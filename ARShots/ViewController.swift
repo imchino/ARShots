@@ -31,6 +31,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = [.vertical]
+        configuration.environmentTexturing = .automatic
 
         // Run the view's session
         sceneView.session.run(configuration)
