@@ -44,38 +44,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
     
-    var hoopAdded = false
     
     @IBAction func screenTapped(_ sender: UITapGestureRecognizer) {
-        if !hoopAdded {
-            let touchLocation = sender.location(in: sceneView)
-            let hitTestResult   = sceneView.hitTest(touchLocation, types: [.existingPlaneUsingExtent])
-            
-            if let result = hitTestResult.first {
-                addHoop(result: result)
-                hoopAdded = true
-            }
-        } else {
-            createBasketball()
-        }
+        createBasketball()
     }
 
-    func addHoop(result: ARHitTestResult) {
-        let hoopScene = SCNScene(named: "art.scnassets/hoop.scn")
-        
-        guard let hoopNode = hoopScene?.rootNode.childNode(withName: "Hoop", recursively: false) else {
-            return
-        }
-        
-        // worldTransform は 4x4行列（0: x軸回転, 1: y軸回転, 2: z軸回転, 3: 空間座標位置）
-        let planePosition = result.worldTransform.columns.3
-        hoopNode.position = SCNVector3(planePosition.x, planePosition.y, planePosition.z)
-        
-        hoopNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: hoopNode, options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.concavePolyhedron]))
-        
-        sceneView.scene.rootNode.addChildNode(hoopNode)
-    }
-    
     func createBasketball() {
         guard let currentFrame = sceneView.session.currentFrame else { return  }
         
