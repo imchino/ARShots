@@ -70,9 +70,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // worldTransform は 4x4行列（0: x軸回転, 1: y軸回転, 2: z軸回転, 3: 空間座標位置）
         let planePosition = result.worldTransform.columns.3
         hoopNode.position = SCNVector3(planePosition.x, planePosition.y, planePosition.z)
-        
-        hoopNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(node: hoopNode, options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.concavePolyhedron]))
-        
+
+        let hoopShape = SCNPhysicsShape(node: hoopNode,
+                                        options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.concavePolyhedron])
+        hoopNode.physicsBody = SCNPhysicsBody(type: .static, shape: hoopShape)
         sceneView.scene.rootNode.addChildNode(hoopNode)
     }
     
