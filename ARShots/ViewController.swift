@@ -86,7 +86,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let cameraTransform = SCNMatrix4(currentFrame.camera.transform)
         ball.transform = cameraTransform
         
-        let physicsBody = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: ball, options: [SCNPhysicsShape.Option.collisionMargin: 0.01]))
+        let ballShape = SCNPhysicsShape(node: ball, options: [SCNPhysicsShape.Option.collisionMargin: 0.01])
+        let physicsBody = SCNPhysicsBody(type: .dynamic, shape: ballShape)
         ball.physicsBody = physicsBody
         
         let power = Float(10.0)
